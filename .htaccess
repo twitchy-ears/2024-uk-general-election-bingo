@@ -1,0 +1,11 @@
+<Files ~ "setup-images.sh">
+  <RequireAll>
+    Require all denied
+  </RequireAll>
+</Files>
+
+<Files ~ "theyworkforyou-mps.csv">
+  <RequireAll>
+    Require all denied
+  </RequireAll>
+</Files>
