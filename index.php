@@ -5,6 +5,11 @@ $images_dir="images";
 
 # echo "file is '$data_file'<br />\n";
 
+if (! file_exists($data_file)) {
+  echo "Error, go run the setup script you don't have any data yet.";
+  exit(1);
+}
+
 $skipper = 0;
 $mp_data;
 foreach(file($data_file) as $line) {
@@ -27,6 +32,12 @@ foreach(file($data_file) as $line) {
       "twfu_url" => $data[5]
       );
   }
+}
+
+# 348 is the total but 300 is just a ballpark for truncated data files
+if (! is_array($mp_data) || sizeof($mp_data) < 300) {
+  echo "Error loading data, probably truncated";
+  exit(1);
 }
 
 $mp_ids;
@@ -96,7 +107,7 @@ function print_mp_cell($mp_id, $pretext = "", $posttext = "") {
     echo "$pretext<img src=\"$image_path\" $image_size /><br />" . $mp_data[$mp_id]["first_name"] . " " . $mp_data[$mp_id]["last_name"] . "<br />" . $mp_data[$mp_id]["constituency"] . "$posttext</td>\n";
   }
   else {
-    echo "<tr>Oopsie error for MP $mp_id</tr>\n";
+    echo "<td>Oopsie error for MP $mp_id</td>\n";
   }
 }
 
